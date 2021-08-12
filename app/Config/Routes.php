@@ -35,6 +35,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->get('/editor', 'Editor::index');
+$routes->get('/profile', 'Profile::index');
 
 /*
  * --------------------------------------------------------------------

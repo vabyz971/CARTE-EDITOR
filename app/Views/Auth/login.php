@@ -57,6 +57,15 @@
           <p class="help is-danger"><?= session('errors.password') ?></p>
         </div>
 
+<?php if ($config->allowRemembering): ?>
+        <div class='field'>
+          <label class="checkbox">
+            <input type="checkbox" name="remember" <?php if(old('remember')) : ?> checked <?php endif ?>>
+            <?=lang('Auth.rememberMe')?>
+          </label>
+        </div>
+<?php endif; ?>
+
         <div class="field">
           <div class="control">
             <?php if ($config->allowRegistration) : ?>
