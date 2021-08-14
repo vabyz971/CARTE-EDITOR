@@ -7,8 +7,7 @@ $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
-if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
-{
+if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
 	require SYSTEMPATH . 'Config/Routes.php';
 }
 
@@ -33,9 +32,24 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/dashboard', 'Dashboard::index');
-$routes->get('/editor', 'Editor::index');
 $routes->get('/profile', 'Profile::index');
+$routes->get('/editor', 'Editor::index');
+// Il y a que les user qui ont le group admin ou superadmin qui sont autoriser
+// pour le controller admin
+$routes->group(
+	'Admin',
+	[
+		'filter' => 'role:admin,superadmin',
+		'namespace' => $routes->getDefaultNamespace() . 'Admin'
+	],
+	function ($routes) {
+		$routes->get('/', function () {
+			return redirect()->to('Admin/dashboard');
+		});
+		$routes->get('/dashboard', 'Dashboard::index');
+	}
+);
+
 
 /*
  * --------------------------------------------------------------------
@@ -50,7 +64,6 @@ $routes->get('/profile', 'Profile::index');
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
-if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php'))
-{
+if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
 	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }

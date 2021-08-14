@@ -7,4 +7,5 @@ return [
   'home'        => 'Accueil',
   'editor'      => 'Éditeur',
   'profile'     => 'Profile',
+  'dashboard'   => 'Dashboard',
 ];

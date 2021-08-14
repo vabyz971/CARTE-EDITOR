@@ -9,7 +9,7 @@
 </head>
 <body>
     <?= view('App\Views\layouts\_navbar') ?>
-    <main class='container is-widescreen mt-6 pt-3'>
+    <main class='container is-fluid mt-6 pt-3'>
       <?= $this->renderSection('content') ?>
     </main>
 

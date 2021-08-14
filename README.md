@@ -1,18 +1,13 @@
-# CodeIgniter 4 Application Starter
+# [Projet file rouge] Gen Carte
 
-## What is CodeIgniter?
+Ce projet est une application que nous avont proposer
+au jury de notre examen pour la validation du diplome.
+le projet est basé sur CodeIgniter pour ça simpliciter et rapidité à assimiler.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](http://codeigniter.com).
+## CodeIgniter?
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
-
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
-
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+- [CodeIgniter](http://codeigniter.com).
+- [MythAuth](https://github.com/lonnieezell/myth-auth).
 
 ## Installation & updates
 
@@ -28,25 +23,27 @@ to your `app` folder. The affected files can be copied or merged from
 Copy `env` to `.env` and tailor for your app, specifically the baseURL
 and any database settings.
 
-## Important Change with index.php
+## Init DataBase
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+White command is terminale
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+`php spark migrate --all`
 
-**Please** read the user guide for a better explanation of how CI4 works!
+`php spark migrate create_carte_tables`
 
-## Repository Management
+ Add user Admin
 
-We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+`php spark db:seed BaseSeeder`
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+Start server local dev
+
+`php spark server`
+
+
+### Login Admin
+
+    login:admin
+    pwd: Password123
 
 ## Server Requirements
 
