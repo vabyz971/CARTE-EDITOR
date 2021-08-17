@@ -8,4 +8,7 @@ return [
   'editor'      => 'Éditeur',
   'profile'     => 'Profile',
   'dashboard'   => 'Dashboard',
+  'information' => 'Information',
+  'updateInfoUser' => 'Mettre à jour vos infomation',
+  'listFrendlyUser'=> 'List de vos amie',
 ];
