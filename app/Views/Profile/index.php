@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <section class="section">
-<?= view('App\Views\_message_block') ?>
+  <?= view('App\Views\_message_block') ?>
   <div class="columns">
     <div class="column is-half">
       <h2 class="title is-2"><?= lang('Dashboard.information') ?></h2>
@@ -49,43 +49,68 @@
             </div>
           </div>
           <div class="columns">
-        <div class='column control'>
-          <label class="label"><?=lang('Auth.password')?></label>
-          <div class="control has-icons-left has-icons-right">
-            <input class="input <?php if(session('errors.password')) : ?>is-danger<?php endif ?>"
-            type="password"
-            name="password"
-            autocomplete="off"
-            placeholder="<?=lang('Auth.password')?>">
-            <span class="icon is-small is-left">
-              <i class="fas fa-lock"></i>
-            </span>
+            <div class='column control'>
+              <label class="label"><?= lang('Auth.password') ?></label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input <?php if (session('errors.password')) : ?>is-danger<?php endif ?>" type="password" name="password" autocomplete="off" placeholder="<?= lang('Auth.password') ?>">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </div>
+            </div>
+            <div class='column control'>
+              <label class="label"><?= lang('Auth.repeatPassword') ?></label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input <?php if (session('errors.pass_confirm')) : ?>is-danger<?php endif ?>" type="password" name="pass_confirm" autocomplete="off" placeholder="<?= lang('Auth.repeatPassword') ?>">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class='column control'>
-          <label class="label"><?=lang('Auth.repeatPassword')?></label>
-          <div class="control has-icons-left has-icons-right">
-            <input class="input <?php if(session('errors.pass_confirm')) : ?>is-danger<?php endif ?>"
-            type="password"
-            name="pass_confirm"
-            autocomplete="off"
-            placeholder="<?=lang('Auth.repeatPassword')?>">
-            <span class="icon is-small is-left">
-              <i class="fas fa-lock"></i>
-            </span>
+          <div class="field">
+            <div class="control">
+              <button type="submit" class="button is-link"><?= lang('Auth.save') ?></button>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <button type="submit" class="button is-link"><?=lang('Auth.save')?></button>
-        </div>
-      </div>
         </form>
       </div>
     </div>
     <div class="column is-half">
       <h3 class="title is-3"><?= lang('Dashboard.listFrendlyUser') ?></h3>
+      <?php if ($friends) : ?>
+        <?php foreach ($friends as $friend) : ?>
+          <div class="box">
+            <article class="media">
+              <?php if ($friend->avatar) : ?>
+                <div class="media-left">
+                  <figure class="image is-64x64">
+                    <img src="<?= $friend->avatar ?>" alt="Image">
+                  </figure>
+                </div>
+              <?php endif; ?>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong><?= $friend->username ?></strong>
+                  </p>
+                </div>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <a href="<?= route_to('profile_user', $friend->id) ?>" class="level-item" aria-label="reply">
+                      <span class=" is-small">
+                        Voir Profile
+                      </span>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </article>
+          </div>
+        <?php endforeach; ?>
+      <?php else : ?>
+        <h2 class="title is-2">Nous n'avez pas d'amie :(</h2>
+      <?php endif; ?>
     </div>
   </div>
 </section>

@@ -37,8 +37,12 @@ White command is terminale
 
 Start server local dev
 
-`php spark server`
+`php spark serve`
 
+
+Rajouter cette ligne dans le controller myth/Controllers/AuthController dans vendor
+
+`protected $helpers = ['auth'];`
 
 ### Login Admin
 

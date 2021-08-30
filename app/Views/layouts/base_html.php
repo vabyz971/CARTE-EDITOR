@@ -13,10 +13,13 @@
       <?= $this->renderSection('content') ?>
     </main>
 
+
     <!-- JAVASCRIPT -->
     <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/js/all.min.js"
       integrity="sha256-gSqw5G+Gss6YqyQlqyIkuQ0IRZUqGsDVq9c0tiF+mL8=" crossorigin="anonymous"></script>
     <script src="<?= base_url('js/script.js') ?>"></script>
+
+    <?= $this->renderSection('script') ?>
 
 </body>
 </html>

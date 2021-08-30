@@ -2,4 +2,5 @@
 
 return [
     'save' => 'Sauvegarder',
+    'logOut' => 'Déconnexion',
 ];

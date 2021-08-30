@@ -15,7 +15,7 @@ class CreateCarteTables extends Migration
 			'user_id'               => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
 			'friend' 					 			=> ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'null' => true],
 			'status'								=> ['type' => 'enum','constraint' => ['friend','waiting','locked'], 'default' => 'waiting'],
-			'date' 									=> ['type' => 'datetime', 'null' => true],
+			'created_at' 									=> ['type' => 'datetime', 'null' => true],
 		]);
 
 		$this->forge->addKey('user_id', true);

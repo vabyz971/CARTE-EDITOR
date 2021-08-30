@@ -10,5 +10,5 @@ return [
   'dashboard'   => 'Dashboard',
   'information' => 'Information',
   'updateInfoUser' => 'Mettre à jour vos infomation',
-  'listFrendlyUser'=> 'List de vos amie',
+  'listFrendlyUser'=> 'List d\'amie',
 ];

@@ -36,6 +36,12 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
+	
+	/**
+	 * Helpers that will be automatically loaded on class instantiation.
+	 *
+	 * @var array
+	 */
 	protected $helpers = ['auth'];
 
 	/**
