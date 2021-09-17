@@ -35,6 +35,8 @@ $routes->get('/', 'Home::index');
 $routes->get('/profile', 'Profile::index');
 $routes->get('/profile/(:num)', 'Profile::UserProfile/$1', ['as' => 'profile_user']);
 $routes->get('/editor', 'Editor::index');
+$routes->post('/editor/create', 'Editor::create');
+$routes->match(['get', 'post'], '/editor', 'Editor::update');
 // Il y a que les user qui ont le group admin ou superadmin qui sont autoriser
 // pour le controller admin
 $routes->group(

@@ -21,9 +21,40 @@
 
     </div>
     <div class="column is-half">
-    <div class="column is-half">
-      <h3 class="title is-3"><?= lang('Dashboard.listFrendlyUser') ?></h3>
-    </div>
+      <div class="column is-half">
+        <h3 class="title is-3"><?= lang('Dashboard.listFrendlyUser') ?></h3>
+        <?php if ($friends) : ?>
+          <?php foreach ($friends as $friend) : ?>
+            <div class="box">
+              <article class="media">
+                <?php if ($friend->avatar) : ?>
+                  <div class="media-left">
+                    <figure class="image is-64x64">
+                      <img src="<?= $friend->avatar ?>" alt="Image">
+                    </figure>
+                  </div>
+                <?php endif; ?>
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong><?= $friend->username ?></strong>
+                    </p>
+                  </div>
+                  <nav class="level is-mobile">
+                    <div class="level-left">
+                      <a href="<?= route_to('profile_user', $friend->id) ?>" class="level-item" aria-label="reply">
+                        <span class=" is-small">
+                          Voir Profile
+                        </span>
+                      </a>
+                    </div>
+                  </nav>
+                </div>
+              </article>
+            </div>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </div>
     </div>
   </div>
 </section>

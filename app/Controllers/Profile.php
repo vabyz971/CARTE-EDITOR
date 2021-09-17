@@ -22,6 +22,7 @@ class Profile extends BaseController
 
 		$friend = [];
 
+		// Ajout tout les amie de l'utilisateur connecter dans une list
 		for ($i = 0; $i < count($friends); $i++) {
 			$friend[$i] = $users->find($friends[$i]['friend']);
 		}
@@ -42,9 +43,18 @@ class Profile extends BaseController
 
 		$users = model(UserModel::class);
 		$users_friends = model(FriendlyModel::class);
+		$friends = $users_friends->where('user_id', $id_users)->findAll();
+
+		$friend = [];
+
+		// Ajout tout les amie de l'utilisateur connecter dans une list
+		for ($i = 0; $i < count($friends); $i++) {
+			$friend[$i] = $users->find($friends[$i]['friend']);
+		}
 
 		$data = [
 			'user' => $users->where('id', $id_users)->first(),
+			'friends' => $friend,
 		];
 		return view("Profile/user", $data);
 	}
