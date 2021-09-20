@@ -3,8 +3,6 @@
 <?= $this->section('content') ?>
 
 <section class="section has-background-light">
-  <?= view('App\Views\_message_block') ?>
-
   <div class="container">
     <div class="columns">
       <div class="column">

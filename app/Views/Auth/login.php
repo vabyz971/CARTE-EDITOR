@@ -11,8 +11,6 @@
               <?=lang('Auth.loginTitle')?>
             </h1>
 
-            <?= view('App\Views\_message_block') ?>
-
           <?php if ($config->validFields === ['email']): ?>
               <div class="field">
                 <label class="label"><?=lang('Auth.email')?></label>

@@ -43,7 +43,7 @@
             </a>
             <?php endif; ?>
             <a class="button <?php if(in_groups('admin','superadmin')): ?> is-primary <?php else: ?> is-success <?php endif ?>" href="<?= route_to('profile') ?>">
-              <strong><?=lang('Dashboard.profile')?></strong>
+              <strong><?= user()->username; ?> <?=lang('Dashboard.profile')?></strong>
               <span class="icon pl-5">
                 <i class="fas fa-id-card"></i>
               </span>

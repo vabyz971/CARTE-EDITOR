@@ -12,8 +12,6 @@
             <?=lang('Auth.register')?>
           </h1>
 
-          <?= view('App\Views\_message_block') ?>
-
           <div class="field">
           <label class="label"><?=lang('Auth.email')?></label>
               <div class="control has-icons-left has-icons-right">

@@ -3,7 +3,6 @@
 <?= $this->section('content') ?>
 
 <section class="section">
-  <?= view('App\Views\_message_block') ?>
   <div class="columns">
     <div class="column is-half">
       <h2 class="title is-2"><?= lang('Dashboard.information') ?></h2>

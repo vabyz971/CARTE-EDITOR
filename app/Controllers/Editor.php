@@ -3,23 +3,25 @@
 namespace App\Controllers;
 
 use App\Models\CarteModel;
-use App\Models\LinkUserCarteModel;
 
 class Editor extends BaseController
 {
 
 	public function index()
 	{
-		return view("Editor/index");
-	}
+		// Vérifie si l'utilisateur est connecter
+		if (!logged_in()) {
+			return redirect()->to(base_url(route_to('/login')));
+		}
 
-	public function create()
-	{
-		helper(['url','auth']);
-		
-		if($this->request->getMethod() == 'post'){
+		helper(['url', 'auth']);
+
+
+		// Si la méthode envoyé est POST avec Ajax
+		if ($this->request->getPost()) {
+
+			//Models
 			$carteModel = new CarteModel();
-			$linkModel = new LinkUserCarteModel();
 
 			$data = [
 				"name" => esc($this->request->getVar("name")),
@@ -29,20 +31,33 @@ class Editor extends BaseController
 				"code_postal" => $this->request->getVar("codePost"),
 			];
 
-			if($carteModel->insert($data)){
-				$linkModel->linkUserCarte(user_id(), $carteModel);
-				echo json_encode(array("status" => true, "message" => "success", "data" => $data));
-				return redirect()->route('editor')->with('message', lang('Editor.success_add_carte'));
-
-			}
-			else{
-				echo json_encode(array("status" => false, "message" => "error", "data" => $data));
-				return redirect()->route('editor')->with('message', lang('Editor.fail_add_carte'));
+			if ($carteModel->insert($data)) {
+				$ajaxResponse = array(
+					"status" => true,
+					"title" => lang('Editor.valide'),
+					"message" => lang('Editor.success_add_carte'),
+				);
+			} else {
+				$ajaxResponse = array(
+					"status" => false,
+					"title" => lang('Editor.error'),
+					"message" => lang('Editor.fail_add_carte'),
+				);
 			}
 		}
-	}
+		else{
+			$ajaxResponse = array(
+				"status" => false,
+				"title" => lang('Editor.error'),
+				"message" => lang('Editor.fail_form_carte'),
+			);
+		}
 
-	public function update(){
-
+		json_encode($ajaxResponse);
+		
+		// Renvoi pas la page si c'est une request AJAX
+		if($this->request->isAJAX()) return false;
+		// Return view Editor
+		return view("Editor/index");
 	}
 }

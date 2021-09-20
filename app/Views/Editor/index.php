@@ -3,10 +3,8 @@
 <?= $this->section('content') ?>
 
 <div class="container is-fluid">
-<?= view('App\Views\_message_block') ?>
 
-<input class="input is-static subtitle is-1 pb-0 mb-0 pt-0" id="name" type="text" placeholder="<?= lang('Editor.input_label_name') ?>">
-
+    <input class="input is-static subtitle is-1 pb-0 mb-0 pt-0" id="name" type="text" placeholder="<?= lang('Editor.input_label_name') ?>">
 
     <section class="section m-2 p-2">
         <div class="columns">
@@ -115,29 +113,76 @@
             var _adresse = $('#adresse').val();
             var _codePost = $('#codePost').val();
 
-            if (_name != "" && _content != "" && _destinater != "" && _adresse != "" && _codePost != "") {
-
-                $.ajax({
-                    type: "POST",
-                    url: "<?= site_url('editor/create') ?>",
-                    dataType: "JSON",
-                    data: {
-                        name: _name,
-                        content: _content,
-                        destinater: _destinater,
-                        adresse: _adresse,
-                        codePost: _codePost,
-                    },
-
-                    success: function(response) {
-                        console.log(response);
-                    }
-                })
-            } else {
-                alert("<?= lang('Editor.error_submit'); ?>");
+            if (_name == "") {
+                toastr["error"]("<?= lang('Editor.form_name_isNull'); ?>", "<?= lang('Editor.error'); ?>")
+                $('#name').focus();
+                return false;
             }
 
+            if (_content == "") {
+                toastr["warning"]("<?= lang('Editor.form_content_isNull'); ?>")
+                $('#content').focus();
+                return false;
+            }
+
+            if (_destinater == "") {
+                toastr["warning"]("<?= lang('Editor.form_destinater_isNull'); ?>")
+                $('#destinater').focus();
+                return false;
+            }
+
+            if (_adresse == "") {
+                toastr["warning"]("<?= lang('Editor.form_adresse_isNull'); ?>")
+                $('#adresse').focus();
+                return false;
+            }
+
+            if (_codePost == "") {
+                toastr["warning"]("<?= lang('Editor.form_codePost_isNull'); ?>")
+                $('#codePost').focus();
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url('/editor') ?>",
+                dataType: "JSON",
+                data: {
+                    name: _name,
+                    content: _content,
+                    destinater: _destinater,
+                    adresse: _adresse,
+                    codePost: _codePost,
+                },
+                success: function(data) {
+                    toastr["success"](data.message);
+                    $('#name').val("");
+                    $('#content').val("");
+                    $('#destinater').val("");
+                    $('#adresse').val("");
+                    $('#codePost').val("");
+                }
+            });
         });
+
+        // Parameter Notification
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     })
 </script>
 

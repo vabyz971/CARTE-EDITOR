@@ -6,6 +6,8 @@ return [
     'template'          =>  'Template',
     'general'           =>  'Général',
     'parameter_police'  =>  'Police',
+    'valide'            =>  'Validé',
+    'error'             =>  'Erreur',
 
     //Options Select
     'select_template'  =>   'Choisir un template',
@@ -28,5 +30,15 @@ return [
 
     // Request Ajax
     'success_add_carte' => 'Lettre Enregister',
-    'fail_add_carte' => 'Lettre non Enregister',
+    'fail_add_carte'    => 'Lettre non Enregister',
+    'fail_form_carte'   => 'Renplicer les champs',
+
+
+    // Error Form Notification
+    'form_name_isNull'      => 'donnée un nom a votre Letter',
+    'form_content_isNull'   => 'Exprimer vous ici',
+    'form_destinater_isNull'=> 'À qui envoyé vous la lettre ?',
+    'form_adresse_isNull'   => 'Ou devons nous envoyé votre lettre ?',
+    'form_codePost_isNull'  => 'Quel est sons code postal ?',
+
 ];
