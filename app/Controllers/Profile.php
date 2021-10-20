@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\FriendlyModel;
-use Myth\Auth\Models\UserModel;
 
 class Profile extends BaseController
 {
@@ -14,23 +13,13 @@ class Profile extends BaseController
 			return redirect()->to(base_url(route_to('/')));
 		}
 
-
-		// Récupere la list des users qui sont amie avec l'utilisateur connecter
-		$users = model(UserModel::class);
 		$users_friends = model(FriendlyModel::class);
-		$friends = $users_friends->where('user_id', user_id())->findAll();
-
-		$friend = [];
-
-		// Ajout tout les amie de l'utilisateur connecter dans une list
-		for ($i = 0; $i < count($friends); $i++) {
-			$friend[$i] = $users->find($friends[$i]['friend']);
-		}
-
+		
 		$data = [
-			'friends' => $friend,
+			"friends" => $users_friends->ListFriend(user_id()),
 		];
 
+		// La Vérification des amies est fait sur la view
 		return view("Profile/index", $data);
 	}
 
@@ -43,18 +32,12 @@ class Profile extends BaseController
 
 		$users = model(UserModel::class);
 		$users_friends = model(FriendlyModel::class);
-		$friends = $users_friends->where('user_id', $id_users)->findAll();
 
-		$friend = [];
-
-		// Ajout tout les amie de l'utilisateur connecter dans une list
-		for ($i = 0; $i < count($friends); $i++) {
-			$friend[$i] = $users->find($friends[$i]['friend']);
-		}
+		$user = $users->where('username', $id_users)->first();
 
 		$data = [
-			'user' => $users->where('id', $id_users)->first(),
-			'friends' => $friend,
+			'user' => $user,
+			"friends" => $users_friends->ListFriend($user->id),
 		];
 		return view("Profile/user", $data);
 	}

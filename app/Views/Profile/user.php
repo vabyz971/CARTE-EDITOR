@@ -41,7 +41,7 @@
                   </div>
                   <nav class="level is-mobile">
                     <div class="level-left">
-                      <a href="<?= route_to('profile_user', $friend->id) ?>" class="level-item" aria-label="reply">
+                      <a href="<?= route_to('profile_user', $friend->username) ?>" class="level-item" aria-label="reply">
                         <span class=" is-small">
                           Voir Profile
                         </span>
