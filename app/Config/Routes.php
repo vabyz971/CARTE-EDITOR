@@ -32,7 +32,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/profile', 'Profile::index');
+$routes->match(['get','post'], '/profile', 'Profile::index');
 $routes->get('/profile/(:any)', 'Profile::UserProfile/$1', ['as' => 'profile_user']);
 $routes->match(['get', 'post'], '/editor', 'Editor::index');
 // Il y a que les user qui ont le group admin ou superadmin qui sont autoriser

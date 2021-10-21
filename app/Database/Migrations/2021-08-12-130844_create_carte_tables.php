@@ -15,8 +15,9 @@ class CreateCarteTables extends Migration
 			'id'               		=> ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
 			'user_id'               => ['type' => 'int', 'constraint' => 11, 'unsigned' => true],
 			'friend' 				=> ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'null' => true],
-			'status'				=> ['type' => 'enum', 'constraint' => ['friend', 'waiting', 'locked'], 'default' => 'waiting'],
+			'etat'					=> ['type' => 'enum', 'constraint' => ['friend', 'waiting', 'locked'], 'default' => 'waiting'],
 			'created_at' 			=> ['type' => 'datetime', 'null' => true],
+			'validate_at'			=> ['type' => 'datetime', 'null' => true],
 			'deleted_at' 			=> ['type' => 'datetime', 'null' => true],
 		]);
 

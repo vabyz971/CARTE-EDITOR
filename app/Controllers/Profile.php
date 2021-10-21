@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\FriendlyModel;
+use App\Models\UserModel;
 
 class Profile extends BaseController
 {
@@ -13,14 +14,47 @@ class Profile extends BaseController
 			return redirect()->to(base_url(route_to('/')));
 		}
 
-		$users_friends = model(FriendlyModel::class);
-		
-		$data = [
-			"friends" => $users_friends->ListFriend(user_id()),
+		//Models
+		$List_friend = model(FriendlyModel::class);
+		$List_user = model(UserModel::class);
+
+
+		// Function URL
+		helper(['url']);
+
+		// Si la méthode envoyé est GET
+		if ($this->request->getPost()) {
+
+			// Récuper le premier utilisateur avec le même speudo
+			$newFriend = $List_user->where('username', $this->request->getVar('username'))->first();
+			$isFriendExiste = $List_friend->IsFriend(user_id(), $newFriend->id);
+
+			// Verifie si c'est un nouvelle amie et qu'il n'est pas en attent 
+			if ($newFriend && !$isFriendExiste) {
+
+				if ($List_friend->insert(['user_id' => user_id(), 'friend' => $newFriend->id])) {
+					$ajaxResponse = array(
+						"status" => true,
+					);
+				}
+			}
+		} else {
+			$ajaxResponse = array(
+				"status" => false,
+			);
+		}
+
+		$ctx = [
+			"users" => $List_user->ListNotInUser(user_id()),
+			"friends" => $List_friend->ListFriend(user_id()),
 		];
+		json_encode($ajaxResponse);
+
+		// Ne renvoi pas la page si c'est une request AJAX
+		if ($this->request->isAJAX()) return false;
 
 		// La Vérification des amies est fait sur la view
-		return view("Profile/index", $data);
+		return view("Profile/index", $ctx);
 	}
 
 	public function UserProfile($id_users)
@@ -31,14 +65,14 @@ class Profile extends BaseController
 		}
 
 		$users = model(UserModel::class);
-		$users_friends = model(FriendlyModel::class);
+		$List_friend = model(FriendlyModel::class);
 
 		$user = $users->where('username', $id_users)->first();
 
-		$data = [
+		$ctx = [
 			'user' => $user,
-			"friends" => $users_friends->ListFriend($user->id),
+			"friends" => $List_friend->ListFriend($user->id),
 		];
-		return view("Profile/user", $data);
+		return view("Profile/user", $ctx);
 	}
 }
