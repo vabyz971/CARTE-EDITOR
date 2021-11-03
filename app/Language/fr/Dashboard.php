@@ -5,7 +5,7 @@ return [
 
   //NavBar
   'home'        => 'Accueil',
-  'editor'      => 'Éditeur',
+  'editor'      => 'Générer une lettre',
   'profile'     => 'Profile',
   'dashboard'   => 'Dashboard',
   'information' => 'Information',

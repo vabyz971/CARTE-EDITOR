@@ -11,10 +11,8 @@ class Editor extends BaseController
 	{
 		// Vérifie si l'utilisateur est connecter
 		if (!logged_in()) {
-			return redirect()->to(base_url(route_to('/login')));
+			return redirect()->to(route_to('login'));
 		}
-
-		helper(['url', 'auth']);
 
 
 		// Si la méthode envoyé est POST avec Ajax

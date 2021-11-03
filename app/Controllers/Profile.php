@@ -11,16 +11,13 @@ class Profile extends BaseController
 	{
 		// Vérification si l'utilisateur est pas connecter et pas 'Administrator'
 		if (!logged_in()) {
-			return redirect()->to(base_url(route_to('/')));
+			return redirect()->to(route_to('login'));
 		}
 
 		//Models
 		$List_friend = model(FriendlyModel::class);
 		$List_user = model(UserModel::class);
 
-
-		// Function URL
-		helper(['url']);
 
 		// Si la méthode envoyé est GET
 		if ($this->request->getPost()) {

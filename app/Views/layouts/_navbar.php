@@ -20,14 +20,12 @@
         <span><?=lang('Dashboard.home')?></span>
       </a>
 
-      <?php if(logged_in()): ?>
       <a class="navbar-item" href="<?= route_to('editor') ?>">
         <span class="icon is-medium">
           <i class="fas fa-edit"></i>
         </span>
         <span><?=lang('Dashboard.editor')?></span>
       </a>
-      <?php endif; ?>
     </div>
 
     <div class="navbar-end m-0">

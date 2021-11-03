@@ -4,6 +4,8 @@
 
 <section class="section has-background-light">
   <div class="container">
+    <div class="media notification is-info"><?= lang('Home.descrAppHome') ?></div>
+
     <div class="columns">
       <div class="column">
         <article class="media notification is-info">
