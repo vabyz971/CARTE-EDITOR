@@ -4,7 +4,7 @@
 
 <div class="container is-fluid">
 
-    <input class="input is-static subtitle is-1 pb-0 mb-0 pt-0" id="name" type="text" placeholder="<?= lang('Editor.input_label_name') ?>">
+    <input class="input is-static subtitle is-1 pb-0 mb-0 pt-0" id="name" type="text" placeholder="<?= lang('Editor.input_label_name') ?>" required >
 
     <section class="section m-2 p-2">
         <div class="columns">
@@ -30,7 +30,7 @@
                         <div class="field is-expanded">
                             <label class="label"><?= lang('Editor.select_font') ?></label>
                             <div class="control">
-                                <div class="select">
+                                <div class="select is-fullwidth">
                                     <select name="type_police">
                                         <option value="">Ariel</option>
                                         <option value="">Sens conplite</option>
@@ -43,7 +43,7 @@
                         <div class="field is-expanded">
                             <label class="label"><?= lang('Editor.select_font_size') ?></label>
                             <div class="control">
-                                <div class="select">
+                                <div class="select is-fullwidth">
                                     <select name="type_police_size">
                                         <?php for ($i = 10; $i <= 24; $i++) { ?>
                                             <option value="<?= $i ?>"><?= $i ?> px</option>
@@ -53,8 +53,6 @@
                             </div>
                         </div>
                     </ul>
-                    <button class="button float is-success mt-5" id="submit"><?= lang('Editor.btn_submit') ?></button>
-
                 </aside>
             </div>
             <div class="column is-flex is-justify-content-center">
@@ -65,7 +63,7 @@
                             <div class="column">
                                 <div class="field">
                                     <div class="control">
-                                        <textarea class="textarea" id="content" name="content"></textarea>
+                                        <textarea class="textarea" id="content" name="content" rows="12" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +72,7 @@
                                     <div class="field">
                                         <label class="label"><?= lang('Editor.input_label_destinater') ?></label>
                                         <div class="control">
-                                            <input class="input" id="destinater" type="text" placeholder="<?= lang('Editor.input_placeholder_you') ?>">
+                                            <input class="input" id="destinater" type="text" placeholder="<?= lang('Editor.input_placeholder_you') ?>" required>
                                         </div>
                                     </div>
                                     <div class="field">
@@ -97,6 +95,8 @@
             </div>
         </div>
     </section>
+    <button class="button float is-success is-medium is-fullwidth mt-2 mb-5" id="submit"><?= lang('Editor.btn_submit') ?></button>
+
 </div>
 
 

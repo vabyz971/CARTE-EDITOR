@@ -29,9 +29,10 @@ return [
 
 
     // Request Ajax
-    'success_add_carte' => 'Lettre Enregister',
-    'fail_add_carte'    => 'Lettre non Enregister',
-    'fail_form_carte'   => 'Renplicer les champs',
+    'success_add_carte'     => 'Lettre Enregister',
+    'success_update_carte'  => 'Lettre Mise a jour',
+    'fail_add_carte'        => 'Lettre non Enregister',
+    'fail_form_carte'       => 'Renplicer les champs',
 
 
     // Error Form Notification

@@ -25,27 +25,41 @@ class Editor extends BaseController
 
 			$data = [
 				"name" => esc($this->request->getVar("name")),
-				"content" => $this->request->getVar("content"),
-				"destinater" => $this->request->getVar("destinater"),
-				"adresse" => $this->request->getVar("adresse"),
-				"code_postal" => $this->request->getVar("codePost"),
+				"content" => esc($this->request->getVar("content")),
+				"destinater" => esc($this->request->getVar("destinater")),
+				"adresse" => esc($this->request->getVar("adresse")),
+				"code_postal" => esc($this->request->getVar("codePost")),
 			];
 
-			if ($carteModel->insert($data)) {
-				$ajaxResponse = array(
-					"status" => true,
-					"title" => lang('Editor.valide'),
-					"message" => lang('Editor.success_add_carte'),
-				);
+			
+			if ($carteModel->where('name', $data['name'])->first()) {
+				
+				$updateCarte = $carteModel->where('name', $data['name'])->first();
+				
+				if ($carteModel->update($updateCarte['id'], $data)) {
+					$ajaxResponse = array(
+						"status" => true,
+						"title" => lang('Editor.valide'),
+						"message" => lang('Editor.success_update_carte'),
+					);
+				}
 			} else {
-				$ajaxResponse = array(
-					"status" => false,
-					"title" => lang('Editor.error'),
-					"message" => lang('Editor.fail_add_carte'),
-				);
+
+				if ($carteModel->insert($data)) {
+					$ajaxResponse = array(
+						"status" => true,
+						"title" => lang('Editor.valide'),
+						"message" => lang('Editor.success_add_carte'),
+					);
+				} else {
+					$ajaxResponse = array(
+						"status" => false,
+						"title" => lang('Editor.error'),
+						"message" => lang('Editor.fail_add_carte'),
+					);
+				}
 			}
-		}
-		else{
+		} else {
 			$ajaxResponse = array(
 				"status" => false,
 				"title" => lang('Editor.error'),
@@ -54,9 +68,9 @@ class Editor extends BaseController
 		}
 
 		json_encode($ajaxResponse);
-		
-		// Renvoi pas la page si c'est une request AJAX
-		if($this->request->isAJAX()) return false;
+
+		// Ne renvoi pas la page si c'est une request AJAX
+		if ($this->request->isAJAX()) return false;
 		// Return view Editor
 		return view("Editor/index");
 	}
