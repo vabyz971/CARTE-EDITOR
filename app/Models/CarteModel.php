@@ -13,6 +13,7 @@ class CarteModel extends Model
 
     protected $allowedFields = ['name', 'content', 'destinater', 'adresse', 'code_postal', 'image'];
 
+    protected $returnType    = 'App\Entities\CarteEntity';
     protected $useTimestamps = true;
 
     protected $afterInsert = ['AddLinkUser'];
@@ -33,4 +34,23 @@ class CarteModel extends Model
             'carte_id' => $data['id'],
         ]);
     }
+
+    /** 
+     * Récuper la list des lettres crée par un utilisateur
+     *
+     * @param int $userId
+     * @return null
+     */
+    public function ListCardUser(int $userId){
+
+        $builder = $this->db->table($this->table);
+        $query = $builder->select('*');
+        $query = $builder->join('users_carte', 'users_carte.carte_id = carte.id');
+        $query = $builder->join('users', 'users_carte.user_id = users.id');
+        $query = $builder->where('users.id', $userId);
+        $query = $builder->get();
+
+        return $query->getResult();
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\FriendlyModel;
 use App\Models\UserModel;
+use App\Models\CarteModel;
 
 class Profile extends BaseController
 {
@@ -17,6 +18,7 @@ class Profile extends BaseController
 		//Models
 		$List_friend = model(FriendlyModel::class);
 		$List_user = model(UserModel::class);
+		$List_letter = model(CarteModel::class);
 
 
 		// Si la méthode envoyé est GET
@@ -42,6 +44,7 @@ class Profile extends BaseController
 		}
 
 		$ctx = [
+			"letters" => $List_letter->ListCardUser(user_id()),
 			"users" => $List_user->ListNotInUser(user_id()),
 			"friends" => $List_friend->ListFriend(user_id()),
 		];

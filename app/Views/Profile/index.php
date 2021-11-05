@@ -22,6 +22,35 @@
 
     </div>
     <div class="column is-half">
+      <h2 class="title is-2"><?= lang('Dashboard.card') ?></h2>
+      <template>
+        <b-carousel-list v-model="card_count" :data="lettes" :items-to-show="2">
+          <template #item="list">
+            <div class="card">
+              <div class="card-content">
+                <div class="media-content">
+                  <p class="title is-6">
+                    <a :href="list.link_share">{{ list.title }}</a>
+                  </p>
+                  <p class="subtitle is-6">
+                    <a :href="list.link_profile_user">
+                      @{{list.destinater}}
+                    </a>
+                  </p>
+                </div>
+                <div class="content">
+                  <b-field grouped>
+                    <p class="control" style="margin-left: auto">
+                      <b-button @click="copyPressLink(list.link_share)" type="is-info" icon-left="link" />
+                    </p>
+                  </b-field>
+                </div>
+              </div>
+
+            </div>
+          </template>
+        </b-carousel-list>
+      </template>
     </div>
   </div>
   <div class="columns mt-4">
@@ -135,6 +164,7 @@
 
 <?= $this->section('script') ?>
 <script type="text/javascript">
+  // Input Upload avatar
   $(document).ready(function() {
 
     var readURL = function(input) {
@@ -159,11 +189,25 @@
   });
 
 
+  //Composen Vue.js
   var app = new Vue({
     el: "#app",
     name: 'profile',
     data() {
       return {
+        card_count: 0,
+        lettes: [
+          <?php foreach ($letters as $letter) : ?> {
+              title: '<?= $letter->name ?>',
+              content: '<?= $letter->content ?>',
+              destinater: '<?= $letter->destinater ?>',
+              link_share: '<?= base_url(route_to('carte_share', $letter->id)) ?>',
+              link_profile_user: '<?= base_url(route_to('profile_user', $letter->destinater)) ?>',
+            },
+          <?php endforeach; ?>
+        ],
+
+        // Liste des utulisateur qui ne sont pas amies
         data: [
           <?php foreach ($users as $user) : ?> '<?= $user->username ?>',
           <?php endforeach ?>
@@ -205,6 +249,20 @@
           position: 'is-bottom',
           type: 'is-danger'
         })
+      },
+
+      copyPressLink(link) {
+        navigator.clipboard.writeText(link).then(() => {
+          this.$buefy.notification.open({
+            message: '<?= lang('Dashboard.CopyPressURL') ?>',
+            type: 'is-info'
+          });
+        }, () => {
+          this.$buefy.notification.open({
+            message: '<?= lang('Validation.errorIsSpawn') ?>',
+            type: 'is-danger'
+          })
+        });
       }
     },
     computed: {

@@ -9,6 +9,7 @@ return [
   'profile'     => 'Profile',
   'dashboard'   => 'Dashboard',
   'information' => 'Information',
+  'card'        => 'Lettre',
 
 
   // Page Profile
@@ -18,6 +19,7 @@ return [
   'addFrendlyUser'  => 'Écriver le pseudo',
   'searchInputValidate'  => 'Rechercher',
   'submitInputAddFriend' => 'Envoiyer une demande d\'amie',
+  'CopyPressURL'    => 'Url copier',
 
   //État des amies
   'waiting'     => 'En attente',

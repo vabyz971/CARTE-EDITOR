@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->match(['get','post'], '/profile', 'Profile::index');
 $routes->get('/profile/(:any)', 'Profile::UserProfile/$1', ['as' => 'profile_user']);
+$routes->get('/carte/(:any)', 'Carte::Share/$1', ['as' => 'carte_share']);
 $routes->match(['get', 'post'], '/editor', 'Editor::index');
 // Il y a que les user qui ont le group admin ou superadmin qui sont autoriser
 // pour le controller admin
