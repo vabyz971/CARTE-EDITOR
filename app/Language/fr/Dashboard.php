@@ -19,7 +19,7 @@ return [
   'addFrendlyUser'  => 'Écriver le pseudo',
   'searchInputValidate'  => 'Rechercher',
   'submitInputAddFriend' => 'Envoiyer une demande d\'amie',
-  'CopyPressURL'    => 'Url copier',
+  'CopyPressURL'    => 'Lien copier',
 
   //État des amies
   'waiting'     => 'En attente',

@@ -4,6 +4,7 @@
 
 <div class="container">
     <section class="section is-large ">
+    <h3 class="title is-3"><?= $carte->name ?></h3>
         <div class="card">
             <div class="columns">
                 <div class="column is-6">

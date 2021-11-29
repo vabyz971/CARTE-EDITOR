@@ -4,11 +4,13 @@
 
 <div class="container is-fluid">
 
-    <input class="input is-static subtitle is-1 pb-0 mb-0 pt-0" id="name" type="text" placeholder="<?= lang('Editor.input_label_name') ?>" required >
+    <div class="pb-5 mb-0 pt-5">
+        <b-input size="is-large" v-model="name" type="text" placeholder="<?= lang('Editor.input_label_name') ?>" required></b-input>
+    </div>
 
     <section class="section m-2 p-2">
         <div class="columns">
-            <div class="column is-one-quarter">
+            <!-- <div class="column is-one-quarter">
                 <aside class="menu">
                     <p class="menu-label mt-5 mb-2">
                         <?= lang('Editor.template') ?>
@@ -54,7 +56,7 @@
                         </div>
                     </ul>
                 </aside>
-            </div>
+            </div> -->
             <div class="column is-flex is-justify-content-center">
                 <div class="card column">
                     <form action="" method="post">
@@ -62,31 +64,22 @@
                         <div class="columns m-2 p-1">
                             <div class="column">
                                 <div class="field">
-                                    <div class="control">
-                                        <textarea class="textarea" id="content" name="content" rows="12" required></textarea>
-                                    </div>
+                                    <b-field label="Content">
+                                        <b-input v-model="content" maxlength="500" type="textarea" required></b-input>
+                                    </b-field>
                                 </div>
                             </div>
                             <div class="column">
                                 <div class="section p-2">
-                                    <div class="field">
-                                        <label class="label"><?= lang('Editor.input_label_destinater') ?></label>
-                                        <div class="control">
-                                            <input class="input" id="destinater" type="text" placeholder="<?= lang('Editor.input_placeholder_you') ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label"><?= lang('Editor.input_label_adresse') ?></label>
-                                        <div class="control">
-                                            <input class="input" id="adresse" type="text" placeholder="<?= lang('Editor.input_placeholder_adresse') ?>">
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label"><?= lang('Editor.input_label_codePostal') ?></label>
-                                        <div class="control">
-                                            <input class="input" id="codePost" type="number" placeholder="<?= lang('Editor.input_placeholder_codePostal') ?>">
-                                        </div>
-                                    </div>
+                                    <b-field label="<?= lang('Editor.input_label_destinater') ?>">
+                                        <b-input v-model="destinater" type="text" placeholder="<?= lang('Editor.input_placeholder_you') ?>" required></b-input>
+                                    </b-field>
+                                    <b-field label="<?= lang('Editor.input_label_adresse') ?>">
+                                        <b-input v-model="address" type="text" placeholder="<?= lang('Editor.input_placeholder_adresse') ?>" required></b-input>
+                                    </b-field>
+                                    <b-field label="<?= lang('Editor.input_label_codePostal') ?>">
+                                        <b-input v-model="codePost" type="number" placeholder="<?= lang('Editor.input_placeholder_codePostal') ?>" required></b-input>
+                                    </b-field>
                                 </div>
                             </div>
                         </div>
@@ -95,93 +88,128 @@
             </div>
         </div>
     </section>
-    <button class="button float is-success is-medium is-fullwidth mt-2 mb-5" id="submit"><?= lang('Editor.btn_submit') ?></button>
+    <div class="buttons">
+        <b-button @click="addCard" type="is-primary" size="is-large" expanded><?= lang('Editor.btn_submit') ?></b-button>
+    </div>
 
 </div>
 
 
 <?= $this->section('script') ?>
 <script>
-    $(document).ready(function() {
+    // $(document).ready(function() {
 
-        // Button Submit form
-        $('#submit').on('click', function() {
+    //     // Button Submit form
+    //     $('#submit').on('click', function() {
 
-            var _name = $('#name').val();
-            var _content = $('#content').val();
-            var _destinater = $('#destinater').val();
-            var _adresse = $('#adresse').val();
-            var _codePost = $('#codePost').val();
+    //         var _name = $('#name').val();
+    //         var _content = $('#content').val();
+    //         var _destinater = $('#destinater').val();
+    //         var _adresse = $('#adresse').val();
+    //         var _codePost = $('#codePost').val();
 
-            if (_name == "") {
-                toastr["error"]("<?= lang('Editor.form_name_isNull'); ?>", "<?= lang('Editor.error'); ?>")
-                $('#name').focus();
-                return false;
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "<?= site_url('/editor') ?>",
+    //             dataType: "JSON",
+    //             data: {
+    //                 name: _name,
+    //                 content: _content,
+    //                 destinater: _destinater,
+    //                 adresse: _adresse,
+    //                 codePost: _codePost,
+    //             },
+    //             success: function(data) {
+    //                 toastr["success"](data.message);
+    //                 $('#name').val("");
+    //                 $('#content').val("");
+    //                 $('#destinater').val("");
+    //                 $('#adresse').val("");
+    //                 $('#codePost').val("");
+    //             }
+    //         });
+    //     });
+
+    //     // Parameter Notification
+    //     toastr.options = {
+    //         "closeButton": false,
+    //         "debug": false,
+    //         "newestOnTop": false,
+    //         "progressBar": true,
+    //         "positionClass": "toast-top-center",
+    //         "preventDuplicates": false,
+    //         "onclick": null,
+    //         "showDuration": "300",
+    //         "hideDuration": "1000",
+    //         "timeOut": "5000",
+    //         "extendedTimeOut": "1000",
+    //         "showEasing": "swing",
+    //         "hideEasing": "linear",
+    //         "showMethod": "fadeIn",
+    //         "hideMethod": "fadeOut"
+    //     }
+    // })
+
+    //Composen Vue.js
+    var app = new Vue({
+        el: '#app',
+        name: 'editor',
+        data() {
+            return {
+
+                // Variable Form Card
+                name: '',
+                content: '',
+                destinater: '',
+                address: '',
+                codePost: '',
+
             }
-
-            if (_content == "") {
-                toastr["warning"]("<?= lang('Editor.form_content_isNull'); ?>")
-                $('#content').focus();
-                return false;
-            }
-
-            if (_destinater == "") {
-                toastr["warning"]("<?= lang('Editor.form_destinater_isNull'); ?>")
-                $('#destinater').focus();
-                return false;
-            }
-
-            if (_adresse == "") {
-                toastr["warning"]("<?= lang('Editor.form_adresse_isNull'); ?>")
-                $('#adresse').focus();
-                return false;
-            }
-
-            if (_codePost == "") {
-                toastr["warning"]("<?= lang('Editor.form_codePost_isNull'); ?>")
-                $('#codePost').focus();
-                return false;
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "<?= site_url('/editor') ?>",
-                dataType: "JSON",
-                data: {
-                    name: _name,
-                    content: _content,
-                    destinater: _destinater,
-                    adresse: _adresse,
-                    codePost: _codePost,
-                },
-                success: function(data) {
-                    toastr["success"](data.message);
-                    $('#name').val("");
-                    $('#content').val("");
-                    $('#destinater').val("");
-                    $('#adresse').val("");
-                    $('#codePost').val("");
+        },
+        methods: {
+            addCard() {
+                if (this.name != '' && this.content != '' && this.destinater != '' && this.address != '' && this.codePost != '') {
+                    $.ajax({
+                        url: '<?= site_url("/editor") ?>',
+                        type: 'POST',
+                        dataType: "JSON",
+                        data: {
+                            name: this.name,
+                            content: this.content,
+                            destinater: this.destinater,
+                            adresse: this.address,
+                            codePost: this.codePost,
+                        },
+                        success: function(data) {
+                            this.$buefy.toast.open({
+                                duration: 5000,
+                                message: "<?= lang('Editor.success_add_carte') ?>",
+                                position: "is-top",
+                                type: "is-success",
+                                hasIcon: true,
+                            });
+                        },
+                        error: function(data) {
+                            this.$buefy.toast.open({
+                                duration: 5000,
+                                message: "<?= lang('Editor.fail_form_carte') ?>",
+                                position: "is-top",
+                                type: "is-danger",
+                                hasIcon: true,
+                            });
+                        }
+                    });
+                } else {
+                    this.$buefy.toast.open({
+                        duration: 5000,
+                        message: "<?= lang('Editor.fail_form_carte') ?>",
+                        position: "is-top",
+                        type: "is-danger",
+                        hasIcon: true,
+                    });
                 }
-            });
-        });
 
-        // Parameter Notification
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-center",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
+            },
         }
     })
 </script>

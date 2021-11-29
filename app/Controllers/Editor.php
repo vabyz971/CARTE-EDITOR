@@ -29,39 +29,31 @@ class Editor extends BaseController
 				"code_postal" => esc($this->request->getVar("codePost")),
 			];
 
-			
+
 			if ($carteModel->where('name', $data['name'])->first()) {
-				
+
 				$updateCarte = $carteModel->where('name', $data['name'])->first();
-				
+
 				if ($carteModel->update($updateCarte['id'], $data)) {
 					$ajaxResponse = array(
-						"status" => true,
-						"title" => lang('Editor.valide'),
-						"message" => lang('Editor.success_update_carte'),
+						"status" => true
 					);
 				}
 			} else {
 
 				if ($carteModel->insert($data)) {
 					$ajaxResponse = array(
-						"status" => true,
-						"title" => lang('Editor.valide'),
-						"message" => lang('Editor.success_add_carte'),
+						"status" => true
 					);
 				} else {
 					$ajaxResponse = array(
-						"status" => false,
-						"title" => lang('Editor.error'),
-						"message" => lang('Editor.fail_add_carte'),
+						"status" => false
 					);
 				}
 			}
 		} else {
 			$ajaxResponse = array(
-				"status" => false,
-				"title" => lang('Editor.error'),
-				"message" => lang('Editor.fail_form_carte'),
+				"status" => false
 			);
 		}
 
@@ -71,5 +63,21 @@ class Editor extends BaseController
 		if ($this->request->isAJAX()) return false;
 		// Return view Editor
 		return view("Editor/index");
+	}
+
+	public function delete(int $id) {
+		// Vérifie si l'utilisateur est connecter
+        if (!logged_in()) {
+            return redirect()->to(route_to('login'));
+        }
+
+		$cartes = model(CarteModel::class);
+
+		if($this->request->getPost()){
+			if($cartes->where('id', $this->request->getVar('id_letter'))->delete()) {
+				return redirect()->to(route_to('profile'));
+			}
+		}
+
 	}
 }
